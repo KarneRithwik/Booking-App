@@ -1,0 +1,3 @@
+app folder used for pages and api's . Its used for file based routing
+Any folder inside app accessed /endpoint. App default is "/"
+
