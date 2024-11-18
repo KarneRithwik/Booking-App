@@ -1,13 +1,15 @@
 // import Navbar from "@/component/Navbar";
+// import InfoBox from "@/components/InfoBox";
 import Hero from "@/components/Hero";
 import InfoBoxes from "@/components/infoBoxes";
-import InfoBox from "@/components/InfoBox";
+import HomeProperties from "@/components/HomeProperties";
 const HomePage = () => {
   return (
     <>
       <Hero />
       <InfoBoxes />
-      <InfoBox />
+      <HomeProperties />
+      {/* <InfoBox /> */}
     </>
   );
 };
