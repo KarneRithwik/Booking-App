@@ -1,3 +1,41 @@
 app folder used for pages and api's . Its used for file based routing
 Any folder inside app accessed /endpoint. App default is "/"
 
+<Link to='/properties"/> 
+
+DOM ROUTING
+
+<BrowserRouter>
+
+<Route to ={/} <App/>
+<Route to ={/properties} <Properties/>
+<Route to ={/properties} <AddPropertyPage/>
+<Route to ={/} <App
+<Route to ={/} <App
+
+</BrowserRouter>
+to learn:
+DOM
+
+
+---------------------
+AuthProvider parameters
+{children }
+AuthProvider
+--------------------------
+
+file based / app based / dom routing 
+
+warning:did not expect server HTML to contain a <div> in a <div>
+-- PropertyAddForm    /components/PropertyAddForm
+
+    This happens when client HTML doesn't match with Server HTML
+    To handle this add a piece of state called mounted:
+    set a use effect to set mounted to true and check before display html
+    'use client';
+    import { 'useState','useEffect' }from 'react';
+    const [mounted, setMounted] = useState(false);
+    useEffect(()=>{
+        setMounted(true);
+    },[]);
+    remove return paranthesis ()
