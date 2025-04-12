@@ -26,9 +26,9 @@ const PropertyImages = ({ images }) => {
                     <Image
                         src={image}
                         alt=""
-                        className="object-cover h-[480px] mx-auto rounded-xl"
-                        width={1800}
-                        height={300}
+                        className="object-cover h-[480px] w-full rounded-xl"
+                        width={0}
+                        height={0}
                         sizes="100vw"
                         priority={true}                    
                     />

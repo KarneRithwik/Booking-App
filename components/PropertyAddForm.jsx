@@ -35,14 +35,14 @@ const PropertyAddForm = () => {
       // "Swimming Pool",
     ],
     rates: {
-      weekly: "100",
-      monthly: "200",
-      nightly:"20",
+      weekly: "",
+      monthly: "",
+      nightly:"",
     },
     seller_info: {
-      name: "e",
-      email: "john@gmail.com",
-      phone: "617-555-5555",
+      name: "",
+      email: "",
+      phone: "",
     },
     images: [],
     });

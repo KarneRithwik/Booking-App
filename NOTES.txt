@@ -39,3 +39,16 @@ warning:did not expect server HTML to contain a <div> in a <div>
         setMounted(true);
     },[]);
     remove return paranthesis ()
+
+Browser -> add propertyy button 
+            ====> fetchProperties-> GETS all properties
+
+            GET /api/properties
+
+            GET /api/properties/:id
+            {
+
+                    {}
+
+
+            }
