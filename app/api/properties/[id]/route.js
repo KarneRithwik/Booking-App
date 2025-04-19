@@ -20,7 +20,8 @@ export const GET = async (request, context) => {
     return new Response("Internal Server Error", { status: 500 });
   }
 };
-
+// /Delete /api/property/:id
+//Delete property by id
 export const DELETE = async (request, context) => {
   try {
     const params = await context.params;
@@ -53,5 +54,80 @@ export const DELETE = async (request, context) => {
   } catch (error) {
     console.error("Error fetching property:", error);
     return new Response("Internal Server Error", { status: 500 });
+  }
+};
+// put /api/property/:id
+//Update property by id
+export const PUT = async (request, { params }) => {
+  try {
+    await connectDB();
+    // const session = await getServerSession(authOptions);
+    // if (!session) {
+    //   return new Response("Unauthorized", { status: 401 });
+    // }
+
+    const sessionUser = await getSessionUser();
+    if (!sessionUser || !sessionUser.userId) {
+      return new Response("userId is required!", { status: 401 });
+    }
+    const { userId } = sessionUser;
+    const { id } = params;
+    const formData = await request.formData();
+    // console.log(formData);
+
+    //access all amenities from the formData
+    const amenities = formData.getAll("amenities");
+
+    // Get property to update
+    const existingProperty = await Property.findById(id);
+    if (!existingProperty) {
+      return new Response("Property does not exist!", { status: 404 });
+    }
+    //verify ownership
+    if (existingProperty.owner.toString() !== userId) {
+      return new Response("Unauthorized!", { status: 401 });
+    }
+
+    //create a propertyData object for database
+    const propertyData = {
+      type: formData.get("type"),
+      name: formData.get("name"),
+      description: formData.get("description"),
+
+      location: {
+        street: formData.get("location.street"),
+        city: formData.get("location.city"),
+        state: formData.get("location.state"),
+        zipcode: formData.get("location.zipcode"),
+      },
+
+      beds: formData.get("beds"),
+      baths: formData.get("baths"),
+      square_feet: formData.get("square_feet"),
+
+      amenities,
+
+      rates: {
+        weekly: formData.get("rates.weekly"),
+        monthly: formData.get("rates.monthly"),
+        nightly: formData.get("rates.nightly"),
+      },
+      seller_info: {
+        name: formData.get("seller_info.name"),
+        email: formData.get("seller_info.email"),
+        phone: formData.get("seller_info.phone"),
+      },
+      owner: userId,
+      // images,
+    };
+    // console.log(propertyData);
+
+    //update property in database
+    const updatedProperty = await Property.findByIdAndUpdate(id, propertyData);
+    return new Response(JSON.stringify(updatedProperty), { status: 200 });
+  }
+  catch (error) {
+    console.error("Error:", error);
+    return new Response("Something went wrong! ", { status: 500 });
   }
 };

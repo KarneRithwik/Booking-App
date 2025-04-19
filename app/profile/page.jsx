@@ -7,6 +7,7 @@ import profileDefault  from "@/assets/images/profile.png";
 import Spinner from "@/components/Spinner";
 import { properties } from '@/properties.json';
 import { set } from "mongoose";
+import {toast } from "react-toastify";
 
 const ProfilePage = () => {
   const { data:session } =useSession();
@@ -51,13 +52,13 @@ const ProfilePage = () => {
         if(res.status===200){
           const updatedProperties = properties.filter((property) =>property._id!==propertyId);
           setProperties(updatedProperties); 
-          alert("Property Deleted!");
+          toast.success("Property Deleted!");
         }
         else{
-          alert("Failed to delete property!");
+          toast.error("Failed to delete property!");
         }
       }catch(error){
-        console.log("Failed to fetch property!");
+        toast.error("Failed to fetch property!");
         console.error(error);
       }
     };
@@ -105,7 +106,7 @@ const ProfilePage = () => {
                   <p className="text-gray-600">Address: {property.location.street} {" "} {"property.location.city"} {" "}{property.location.state}</p>
                 </div>
                 <div className="mt-2">
-                  <Link href={`/properties/${property._id}`}
+                  <Link href={`/properties/${property._id}/edit`}
                     className="bg-blue-500 text-white px-3 py-3 rounded-md mr-2 hover:bg-blue-600"
                   >
                     Edit
