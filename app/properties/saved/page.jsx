@@ -48,7 +48,7 @@ const SavedPropertiesPage = () => {
                                 <PropertyCard key ={property._id} property={property}/>
                         ))}
                     </div>
-                )}
+                )}  
         </div>
     </section>
   );

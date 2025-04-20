@@ -1,4 +1,5 @@
 // import properties from "@/properties.json";
+import PropertySearchForm from "@/components/PropertySearchForm";
 import PropertyCard from "@/components/PropertyCard";
 import { fetchProperties } from "@/utils/requests";
 
@@ -6,8 +7,16 @@ const PropertiesPage = async () => {
   const properties = await fetchProperties();
   //sort properties by date
   properties.sort((a, b) => new Date(b.ctreatedAt) - new Date(a.ctreatedAt));
+
   return (
-    <section className="px-4 py-6">
+    <>
+        <section className="bg-blue-700 py-4">
+            <div className="max-w-7xl mx-auto px-4 flex flex-col items-star sm:px-6 lg:px-8">
+                <PropertySearchForm/>
+            </div>
+        </section>
+        {
+          <section className="px-4 py-6">
       <div className="container-xl lg:container m-auto px-4 py-6">
         {properties.length === 0 ? (
           <p>No properties found</p>
@@ -23,6 +32,8 @@ const PropertiesPage = async () => {
         )}
       </div>
     </section>
+        }
+    </>
   );
 };
 export default PropertiesPage;

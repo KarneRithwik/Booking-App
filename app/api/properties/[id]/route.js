@@ -10,7 +10,9 @@ export const GET = async (request, context) => {
     await connectDB();
     const params = await context.params;
     const property = await Property.findById(params.id);
+
     if (!property?.id) return new Response('Property Not Found!', { status: 404 });
+
     return new Response(JSON.stringify(property), {
       status: 200,
       //   headers: { "Content-Type": "application/json" },
