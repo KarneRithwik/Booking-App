@@ -1,10 +1,11 @@
 "use client"
+import { useSession } from "next-auth/react";
 import {useState} from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const PropertyContactForm = ({property}) => {
-
+  const {data:session}=useSession();
   const [name,setName] = useState("");
   const [email,setEmail] = useState("");
   const [message,setMessage] = useState("");
@@ -30,12 +31,13 @@ const PropertyContactForm = ({property}) => {
         body:JSON.stringify(data)
       });
 
-      const result = await res.json();
+      
       if(res.status===200){
         toast.success("Message sent successfully!");
         setWasSubmitted(true);
       }
       else if(res.status===400 || res.status===401){
+        const result = await res.json();
         toast.error(result.message);
       }
       else{
@@ -60,7 +62,8 @@ const PropertyContactForm = ({property}) => {
                     <h3 className="text-xl font-bold mb-6">
                       Contact Property Manager
                     </h3>
-                    {wasSubmitted ?(
+                    {!session?(<p>You need to login to send a message</p>):(
+                    wasSubmitted ?(
                       <p className="text-green-500 mb-4">
                       Your response has been sent successfully!</p>
                       ):(
@@ -140,7 +143,8 @@ const PropertyContactForm = ({property}) => {
                         </button>
                       </div>
                     </form>
-                    )}
+                    )
+                  )}
                   </div>
   );
 };
