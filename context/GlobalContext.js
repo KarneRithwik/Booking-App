@@ -1,12 +1,12 @@
 "use client";
 import { createContext, useContext, useState } from "react";
 
-//craete global context
+//create global context
 const GlobalContext = createContext();
 
 //create a provider component 
 export function GlobalProvider({ children }) {
-    const [unreadCount, setUnreadCount] = useState(0);
+    const { unreadCount, setUnreadCount } = useState(0);
 
     return (
         <GlobalContext.Provider value={{ unreadCount, setUnreadCount }}>
